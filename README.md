@@ -10,6 +10,7 @@ Enter the following in your project root:
 `go get github.com/coocood/qbs`  
 `go get github.com/go-martini/martini`  
 `go get github.com/lib/pq`  
+`go get github.com/martini-contrib/gzip`  
 
 Download and install Postgres:
 

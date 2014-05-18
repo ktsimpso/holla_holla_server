@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/go-martini/martini"
+	"github.com/martini-contrib/gzip"
 	"github.com/ktsimpso/holla_holla_server/models"
 	"encoding/json"
 	"net/http"
@@ -11,13 +12,18 @@ func main() {
 	models.RegisterDb()
 	models.CreateTables()
 
-	m := martini.Classic()
+	m := martini.New()
+	m.Use(martini.Logger())
+	m.Use(gzip.All())
+	m.Use(martini.Recovery())
 
 	m.Use(func(c martini.Context, w http.ResponseWriter) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	})
 
-	m.Get("/user", func () (int, string) {
+	r := martini.NewRouter()
+
+	r.Get("/user", func () (int, string) {
 		users, err := packIntoJson(models.GetUsers)
 		if err != nil {
 			return 500, "An error occured!"
@@ -26,7 +32,7 @@ func main() {
 		return 200, users
 	})
 
-	m.Get("/store", func () (int, string) {
+	r.Get("/store", func () (int, string) {
 		stores, err := packIntoJson(models.GetStores)
 		if err != nil {
 			return 500, "An error occured!"
@@ -35,6 +41,7 @@ func main() {
 		return 200, stores
 	})
 
+	m.Action(r.Handle)
 	m.Run()
 }
 

@@ -14,12 +14,12 @@ func RegisterDb() {
 
 type User struct {
 	Id int64 `json:"id"`
-	Name string `qbs:"size:64,index"json:"name"`
+	Name string `qbs:"size:64,index" json:"name"`
 }
 
 type Store struct {
 	Id int64 `json:"id"`
-	Name string `qbs:"size:64,index"json:"name"`
+	Name string `qbs:"size:64,index" json:"name"`
 }
 
 //TODO: handle errors
