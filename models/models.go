@@ -7,10 +7,6 @@ import (
 
 type GetFunction func() (interface{}, error)
 
-func RegisterDb() {
-	qbs.Register("postgres", "user=holla dbname=hollaholla password=gimmiechocolate sslmode=disable", "hollaholla", qbs.NewPostgres())	
-}
-
 type User struct {
 	Id int64 `json:"id"`
 	Name string `qbs:"size:64,index" json:"name"`
@@ -23,6 +19,7 @@ type Store struct {
 
 //TODO: handle errors
 func CreateTables() error {
+	qbs.Register("postgres", "user=holla dbname=hollaholla password=gimmiechocolate sslmode=disable", "hollaholla", qbs.NewPostgres())
 	createTable(new(User))
 	createTable(new(Store))
 	return nil

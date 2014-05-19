@@ -9,7 +9,6 @@ import (
 )
 
 func main() {
-	models.RegisterDb()
 	models.CreateTables()
 
 	m := martini.New()
