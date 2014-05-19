@@ -40,6 +40,15 @@ func main() {
 		return 200, stores
 	})
 
+	r.Get("/deal", func () (int, string) {
+		deals, err := packIntoJson(models.GetDeals)
+		if err != nil {
+			return 500, "An error occured"
+		}
+
+		return 200, deals
+	})
+
 	m.Action(r.Handle)
 	m.Run()
 }
