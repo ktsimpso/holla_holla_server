@@ -5,8 +5,7 @@ import (
 	"github.com/coocood/qbs"
 )
 
-type T interface{}
-type GetFunction func() (T, error)
+type GetFunction func() (interface{}, error)
 
 func RegisterDb() {
 	qbs.Register("postgres", "user=holla dbname=hollaholla password=gimmiechocolate sslmode=disable", "hollaholla", qbs.NewPostgres())	
@@ -29,7 +28,17 @@ func CreateTables() error {
 	return nil
 }
 
-func createTable(t T) error {
+func GetUsers() (interface{}, error) {
+	var users []*User
+	return getModels(&users)
+}
+
+func GetStores() (interface{}, error) {
+	var stores []*Store
+	return getModels(&stores)
+}
+
+func createTable(t interface{}) error {
 	migration, err := qbs.GetMigration()
 	if err != nil {
 		return err
@@ -39,17 +48,7 @@ func createTable(t T) error {
 	return migration.CreateTableIfNotExists(t)
 }
 
-func GetUsers() (T, error) {
-	var users []*User
-	return getModels(&users)
-}
-
-func GetStores() (T, error) {
-	var stores []*Store
-	return getModels(&stores)
-}
-
-func getModels(items T) (T, error) {
+func getModels(items interface{}) (interface{}, error) {
 	q, err := qbs.GetQbs()
 	if err != nil {
 		return nil, err
