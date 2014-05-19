@@ -40,27 +40,22 @@ func createTable(t T) error {
 }
 
 func GetUsers() (T, error) {
-	var users []*User;
-
-	q, err := qbs.GetQbs()
-	if err != nil {
-		return nil, err
-	}
-	defer q.Close()
-
-	err = q.FindAll(&users)
-	return users, err
+	var users []*User
+	return getModels(&users)
 }
 
 func GetStores() (T, error) {
-	var stores []*Store;
+	var stores []*Store
+	return getModels(&stores)
+}
 
+func getModels(items T) (T, error) {
 	q, err := qbs.GetQbs()
 	if err != nil {
 		return nil, err
 	}
 	defer q.Close()
 
-	err = q.FindAll(&stores)
-	return stores, err
+	err = q.FindAll(items)
+	return items, err
 }
