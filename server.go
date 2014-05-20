@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/gzip"
+	"github.com/codegangsta/martini-contrib/cors"
 	"github.com/ktsimpso/holla_holla_server/models"
 	"encoding/json"
 	"net/http"
@@ -15,6 +16,9 @@ func main() {
 	m.Use(martini.Logger())
 	m.Use(gzip.All())
 	m.Use(martini.Recovery())
+	m.Use(cors.Allow(&cors.Options{
+		AllowAllOrigins: true,
+	}))
 
 	m.Use(func(c martini.Context, w http.ResponseWriter) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")

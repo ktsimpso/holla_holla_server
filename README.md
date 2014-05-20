@@ -11,6 +11,7 @@ Enter the following in your project root:
 `go get github.com/go-martini/martini`  
 `go get github.com/lib/pq`  
 `go get github.com/martini-contrib/gzip`  
+`go get github.com/codegangsta/martini-contrib/cors`  
 
 Download and install Postgres:
 
