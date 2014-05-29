@@ -27,7 +27,7 @@ type Deal struct {
 	StoreId int64 `json:"store_id"`
 	Store *Store `json:"store"`
 
-	Created time.Time `json"created"`
+	Created time.Time `json:"date"`
 }
 
 //TODO: handle errors
