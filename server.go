@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/go-martini/martini"
-	"github.com/martini-contrib/gzip"
-	"github.com/codegangsta/martini-contrib/cors"
-	"github.com/ktsimpso/holla_holla_server/models"
 	"encoding/json"
+	"github.com/codegangsta/martini-contrib/cors"
+	"github.com/go-martini/martini"
+	"github.com/ktsimpso/holla_holla_server/models"
+	"github.com/martini-contrib/gzip"
 	"net/http"
 )
 
@@ -26,7 +26,7 @@ func main() {
 
 	r := martini.NewRouter()
 
-	r.Get("/user", func () (int, string) {
+	r.Get("/user", func() (int, string) {
 		users, err := packIntoJson(models.GetUsers)
 		if err != nil {
 			return 500, "An error occured!"
@@ -35,7 +35,7 @@ func main() {
 		return 200, users
 	})
 
-	r.Get("/store", func () (int, string) {
+	r.Get("/store", func() (int, string) {
 		stores, err := packIntoJson(models.GetStores)
 		if err != nil {
 			return 500, "An error occured!"
@@ -44,7 +44,7 @@ func main() {
 		return 200, stores
 	})
 
-	r.Get("/deal", func () (int, string) {
+	r.Get("/deal", func() (int, string) {
 		deals, err := packIntoJson(models.GetDeals)
 		if err != nil {
 			return 500, "An error occured"
