@@ -13,6 +13,10 @@ Enter the following in your project root:
 `go get github.com/martini-contrib/gzip`  
 `go get github.com/codegangsta/martini-contrib/cors`  
 
+Note the following require Mercurial  
+`go get code.google.com/p/go.crypto/bcrypt`  
+`go get code.google.com/p/go.crypto/pbkdf2`  
+
 Download and install Postgres:
 
 Create a user called `holla`

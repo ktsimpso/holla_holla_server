@@ -1,20 +1,20 @@
 package models
 
 import (
-	_ "github.com/lib/pq"
 	"github.com/coocood/qbs"
+	_ "github.com/lib/pq"
 	"time"
 )
 
 type GetFunction func() (interface{}, error)
 
 type User struct {
-	Id int64 `json:"id"`
+	Id   int64  `json:"id"`
 	Name string `qbs:"size:64,index" json:"name"`
 }
 
 type Store struct {
-	Id int64 `json:"id"`
+	Id   int64  `json:"id"`
 	Name string `qbs:"size:64,index" json:"name"`
 }
 
@@ -22,10 +22,10 @@ type Deal struct {
 	Id int64 `json:"id"`
 
 	UserId int64 `json:"user_id"`
-	User *User `json:"user"`
+	User   *User `json:"user"`
 
-	StoreId int64 `json:"store_id"`
-	Store *Store `json:"store"`
+	StoreId int64  `json:"store_id"`
+	Store   *Store `json:"store"`
 
 	Created time.Time `json:"date"`
 }
