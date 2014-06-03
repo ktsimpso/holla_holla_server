@@ -9,8 +9,9 @@ import (
 type GetFunction func() (interface{}, error)
 
 type User struct {
-	Id   int64  `json:"id"`
-	Name string `qbs:"size:64,index" json:"name"`
+	Id       int64  `json:"id"`
+	Name     string `qbs:"size:64,index" json:"name"`
+	Password []byte `json:"-"`
 }
 
 type Store struct {

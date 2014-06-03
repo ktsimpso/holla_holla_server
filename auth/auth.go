@@ -11,3 +11,8 @@ func HashPassword(password []byte) ([]byte, error) {
 	key := pbkdf2.Key(password, []byte(""), 1024, 64, sha512.New)
 	return bcrypt.GenerateFromPassword(key, bcrypt.DefaultCost)
 }
+
+func CompareHashAndPassword(hashedPassword, password []byte) error {
+	key := pbkdf2.Key(password, []byte(""), 1024, 64, sha512.New)
+	return bcrypt.CompareHashAndPassword(hashedPassword, key)
+}
