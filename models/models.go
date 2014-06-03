@@ -11,6 +11,7 @@ type GetFunction func() (interface{}, error)
 type User struct {
 	Id       int64  `json:"id"`
 	Name     string `qbs:"size:64,index" json:"name"`
+	Email    string `qbs:"size:256,index,unique" json:"-"`
 	Password []byte `json:"-"`
 }
 
