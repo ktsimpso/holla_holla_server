@@ -35,6 +35,10 @@ func main() {
 		return 200, users
 	})
 
+	r.Post("/user", func() (int, string) {
+
+	})
+
 	r.Get("/store", func() (int, string) {
 		stores, err := packIntoJson(models.GetStores)
 		if err != nil {
