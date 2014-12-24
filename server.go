@@ -10,8 +10,6 @@ import (
 )
 
 func main() {
-	models.CreateTables()
-
 	m := martini.New()
 	m.Use(martini.Logger())
 	m.Use(gzip.All())
@@ -33,10 +31,6 @@ func main() {
 		}
 
 		return 200, users
-	})
-
-	r.Post("/user", func() (int, string) {
-
 	})
 
 	r.Get("/store", func() (int, string) {

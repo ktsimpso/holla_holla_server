@@ -14,6 +14,7 @@ type User struct {
 	Email         string `qbs:"size:256,index,unique" json:"-"`
 	EmailVerified bool   `json:"-"`
 	Password      []byte `json:"-"`
+	CanLogin      bool   `json:"-"`
 }
 
 type Store struct {
@@ -33,13 +34,44 @@ type Deal struct {
 	Created time.Time `json:"date"`
 }
 
-//TODO: handle errors
-func CreateTables() error {
+func init() {
+	createTables()
+
+	// Insure there is an anonymous user
+	anonymousUser := User{
+		Id:            1,
+		Name:          "Anonymous",
+		Email:         "",
+		EmailVerified: false,
+		Password:      []byte{},
+		CanLogin:      false,
+	}
+	q, err := qbs.GetQbs()
+	if err != nil {
+		panic(err)
+	}
+	defer q.Close()
+
+	_, err = q.Save(&anonymousUser)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func createTables() {
 	qbs.Register("postgres", "user=holla dbname=hollaholla password=gimmiechocolate sslmode=disable", "hollaholla", qbs.NewPostgres())
-	createTable(new(User))
-	createTable(new(Store))
-	createTable(new(Deal))
-	return nil
+	err := createTable(new(User))
+	if err != nil {
+		panic(err)
+	}
+	err = createTable(new(Store))
+	if err != nil {
+		panic(err)
+	}
+	err = createTable(new(Deal))
+	if err != nil {
+		panic(err)
+	}
 }
 
 func GetUsers() (interface{}, error) {
