@@ -75,17 +75,17 @@ func createTables() {
 }
 
 func GetUsers() (interface{}, error) {
-	var users []*User
+	users := make([]*User, 0)
 	return getModels(&users)
 }
 
 func GetStores() (interface{}, error) {
-	var stores []*Store
+	stores := make([]*Store, 0)
 	return getModels(&stores)
 }
 
 func GetDeals() (interface{}, error) {
-	var deals []*Deal
+	deals := make([]*Deal, 0)
 	return getModels(&deals)
 }
 
