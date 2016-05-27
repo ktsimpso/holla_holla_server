@@ -16,32 +16,20 @@ func main() {
 	e.Use(middleware.Recover())
 	e.Use(cors.Default().Handler)
 
-	e.Get("/user", func(c *echo.Context) error {
-		users, err := models.GetUsers()
-		if err != nil {
-			return err
-		}
-
-		return c.JSON(http.StatusOK, users)
-	})
-
-	e.Get("/store", func(c *echo.Context) error {
-		stores, err := models.GetStores()
-		if err != nil {
-			return err
-		}
-
-		return c.JSON(http.StatusOK, stores)
-	})
-
-	e.Get("/deal", func(c *echo.Context) error {
-		deals, err := models.GetDeals()
-		if err != nil {
-			return err
-		}
-
-		return c.JSON(http.StatusOK, deals)
-	})
+	e.Get("/user", getHandlerFunc(models.GetUsers))
+	e.Get("/store", getHandlerFunc(models.GetStores))
+	e.Get("/deal", getHandlerFunc(models.GetDeals))
 
 	e.Run(":3000")
+}
+
+func getHandlerFunc(gf models.GetFunction) echo.HandlerFunc {
+	return func(c *echo.Context) error {
+		items, err := gf()
+		if err != nil {
+			return err
+		}
+
+		return c.JSON(http.StatusOK, items)
+	}
 }
